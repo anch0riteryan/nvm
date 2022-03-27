@@ -11,6 +11,7 @@ void initNvm () {
 	p->eeprom = malloc (sizeof (Eeprom));
 	p->eeprom->write = write;
 	p->eeprom->read  = read;
+	p->eeprom->erasePage = erasePage;
 	p->eeprom->eraseAllPages = eraseAllPages;
 	
 //#ifdef _SAMC21_
