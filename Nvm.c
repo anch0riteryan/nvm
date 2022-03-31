@@ -1,4 +1,5 @@
 #include "Nvm.h"
+#include "Eeprom.h"
 
 Nvm *nvm;
 
@@ -9,8 +10,8 @@ void initNvm () {
 	p = nvm;
 	
 	p->eeprom = malloc (sizeof (Eeprom));
-	p->eeprom->write = write;
-	p->eeprom->read  = read;
+	p->eeprom->write = eeprom_write;
+	p->eeprom->read  = eeprom_read;
 	p->eeprom->erasePage = erasePage;
 	p->eeprom->eraseAllPages = eraseAllPages;
 	

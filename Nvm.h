@@ -6,7 +6,7 @@
 #include <samc21.h>
 //#include <samd21.h>
 
-#include <Eeprom.h>
+#include "Eeprom.h"
 
 typedef union {
 	struct { //fix spec p104
@@ -61,6 +61,13 @@ typedef union {
 	uint32_t reg[4];
 	*/
 } SoftwareCalibration;
+
+typedef struct _eeprom_func {
+	uint8_t (*write) (uint8_t *src, const uint32_t offset, const uint32_t size);
+	uint8_t (*read) (uint8_t *dest, const uint32_t offset, const uint32_t size);
+	uint8_t (*erasePage) (const uint8_t p);
+	uint8_t (*eraseAllPages) (void );
+} Eeprom;
 
 typedef struct _nvm {
 	Eeprom *eeprom;

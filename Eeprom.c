@@ -1,7 +1,8 @@
 #include "Nvm.h"
 #include "NvmCommon.h"
+#include "Eeprom.h"
 
-uint8_t write (uint8_t *src, const uint32_t offset, const uint32_t size) {
+uint8_t eeprom_write (uint8_t *src, const uint32_t offset, const uint32_t size) {
 	uint8_t cache[NVMCTRL_ROW_SIZE]; //256 bytes
 	
 	uint32_t startAddress = NVMCTRL_RWW_EEPROM_ADDR + offset;
@@ -63,7 +64,7 @@ uint8_t write (uint8_t *src, const uint32_t offset, const uint32_t size) {
 	return 0;
 }
 
-uint8_t read (uint8_t *dest, const uint32_t offset, const uint32_t size) {
+uint8_t eeprom_read (uint8_t *dest, const uint32_t offset, const uint32_t size) {
 	if (size > NVMCTRL_RWW_EEPROM_SIZE) {
 		return -1;
 	}
