@@ -21,7 +21,7 @@ uint8_t eeprom_write (uint8_t *src, const uint32_t offset, const uint32_t size) 
 	
 #ifdef DEBUG
 	printf ("---EEPROM WRITE START---\n");
-	printf ("from:0x%08X to:0x%08X\n", startAddress, endAddress);
+	//printf ("from:0x%08X to:0x%08X\n", startAddress, endAddress);
 #endif	
 	
 	for (uint32_t address = startAddress; address < endAddress; address++) {
@@ -32,7 +32,7 @@ uint8_t eeprom_write (uint8_t *src, const uint32_t offset, const uint32_t size) 
 			memcpy (cache, (void const *) currentRow, NVMCTRL_ROW_SIZE);
 			nvmExecuteCmd (NVM_CMD_RWWEE_ER, currentRow);
 #ifdef DEBUG
-			printf ("row start erase at 0x%08X\n", tmp);
+			//printf ("row start erase at 0x%08X\n", tmp);
 #endif
 		}
 		
@@ -45,13 +45,15 @@ uint8_t eeprom_write (uint8_t *src, const uint32_t offset, const uint32_t size) 
 			
 			for (uint8_t page = 0; page < NVMCTRL_ROW_PAGES; page++) { //page offset 0-3				
 				for (uint8_t index = 0; index < (NVMCTRL_PAGE_SIZE >> 2); index++) { //0-63 in dword
+					while (!NVMCTRL->INTFLAG.bit.READY);
+					
 					*((volatile uint32_t *) (currentRow + (page * NVMCTRL_PAGE_SIZE) + (index << 2))) = *(p + index + (page * 16));
 				}
 				
 				//when using manual write
 				//nvmExecuteCmd (NVM_CMD_RWWEE_WP, (currentRow * (page * NVMCTRL_PAGE_SIZE)));
 #ifdef DEBUG
-				printf ("page end at 0x%08X, PAGE WRITE\n", (currentRow + (page * NVMCTRL_PAGE_SIZE)));
+				//printf ("page end at 0x%08X, PAGE WRITE\n", (currentRow + (page * NVMCTRL_PAGE_SIZE)));
 #endif					
 			}
 		}
