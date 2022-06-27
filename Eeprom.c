@@ -20,7 +20,7 @@ uint8_t eeprom_write (uint8_t *src, const uint32_t offset, const uint32_t size) 
 	}
 	
 #ifdef DEBUG
-	printf ("---EEPROM WRITE START---\n");
+	//printf ("---EEPROM WRITE START---\n");
 	//printf ("from:0x%08X to:0x%08X\n", startAddress, endAddress);
 #endif	
 	
@@ -60,7 +60,7 @@ uint8_t eeprom_write (uint8_t *src, const uint32_t offset, const uint32_t size) 
 	} //end of for address
 	
 #ifdef DEBUG
-	printf ("---EEPROM WRITE DONE ---\n");
+	//printf ("---EEPROM WRITE DONE ---\n");
 #endif	
 	
 	return 0;
